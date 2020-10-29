@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 
 const cookieParser = require('cookie-parser');
@@ -8,7 +9,7 @@ const path = require('path');
 const createError = require('http-errors');
 
 // require all the packages you install
-// ... here
+const cors = require('cors');
 
 const app = express();
 
@@ -24,16 +25,25 @@ app.use(cookieParser());
 require('./configs/db.config');
 
 // require CORS (Cross-Origin Resource Sharing)
-// ... here
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_POINT],
+    credentials: true // this needs set up on the frontend side as well
+    //                   in axios "withCredentials: true"
+  })
+);
 
 // require session
-// ... here
+require('./configs/session.config')(app);
 
 // require passport
-// ... here
+require('./configs/passport/passport.config.js')(app);
 
 // routes middleware
 app.use('/', require('./routes/index.routes'));
+app.use('/', require('./routes/authentication.routes'));
+app.use('/', require('./routes/author.routes'));
+app.use('/', require('./routes/book.routes'));
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
