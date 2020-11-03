@@ -6,28 +6,28 @@ const express = require('express');
 const router = express.Router();
 
 // ********* require Author and Book models in order to use them *********
-const Author = require('../models/Author.model');
-const Book = require('../models/Book.model');
+const Profile = require('../models/Profile.model');
+const Spot = require('../models/Spot.model');
 
 // ****************************************************************************************
-// POST - create a book
+// POST - create a spot
 // ****************************************************************************************
 
-// <form action="/books" method="POST">
-router.post('/api/books', (req, res, next) => {
+// <form action="/spots" method="POST">
+router.post('/api/spots', (req, res, next) => {
   // console.log(req.body);
-  Book.create(req.body)
-    .then(bookDoc => res.status(200).json({ book: bookDoc }))
+  Spot.create(req.body)
+    .then(spotDoc => res.status(200).json({ spot: spotDoc }))
     .catch(err => next(err));
 });
 
 // ****************************************************************************************
-// GET route to get all the books
+// GET route to get all the spots created by the user
 // ****************************************************************************************
 
-router.get('/api/books', (req, res) => {
-  Book.find()
-    .then(booksFromDB => res.status(200).json({ books: booksFromDB }))
+router.get('/api/spots', (req, res) => {
+  Spot.find()
+    .then(spotsFromDB => res.status(200).json({ spots: spotsFromDB }))
     .catch(err => next(err));
 });
 
@@ -36,8 +36,8 @@ router.get('/api/books', (req, res) => {
 // ****************************************************************************************
 
 // <form action="/books/{{this._id}}/delete" method="post">
-router.post('/api/books/:bookId/delete', (req, res) => {
-  Book.findByIdAndRemove(req.params.bookId)
+router.post('/api/spots/:spotId/delete', (req, res) => {
+  Spot.findByIdAndRemove(req.params.spotId)
     .then(() => res.json({ message: 'Successfully removed!' }))
     .catch(err => next(err));
 });
@@ -47,20 +47,20 @@ router.post('/api/books/:bookId/delete', (req, res) => {
 // ****************************************************************************************
 
 // <form action="/books/{{foundBook._id}}/update" method="POST">
-router.post('/api/books/:id/update', (req, res) => {
-  Book.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(updatedBook => res.status(200).json({ book: updatedBook }))
+router.post('/api/spots/:id/update', (req, res) => {
+  Spot.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(updatedSpot => res.status(200).json({ spot: updatedSpot }))
     .catch(err => next(err));
 });
 
 // ****************************************************************************************
-// GET route for getting the book details
+// GET route for getting the spot details
 // ****************************************************************************************
 
-router.get('/api/books/:someBookId', (req, res) => {
-  Book.findById(req.params.someBookId)
-    .populate('author')
-    .then(foundBook => res.status(200).json({ book: foundBook }))
+router.get('/api/spots/:someSpotId', (req, res) => {
+  Book.findById(req.params.someSpotId)
+    .populate('profile')
+    .then(foundSpot => res.status(200).json({ spot: foundSpot }))
     .catch(err => next(err));
 });
 

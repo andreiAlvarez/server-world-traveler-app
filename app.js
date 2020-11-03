@@ -42,8 +42,8 @@ require('./configs/passport/passport.config.js')(app);
 // routes middleware
 app.use('/', require('./routes/index.routes'));
 app.use('/', require('./routes/authentication.routes'));
-app.use('/', require('./routes/author.routes'));
-app.use('/', require('./routes/book.routes'));
+app.use('/', require('./routes/profile.routes'));
+app.use('/', require('./routes/spot.routes'));
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
