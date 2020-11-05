@@ -19,7 +19,14 @@ const userSchema = new Schema(
     passwordHash: {
       type: String,
       required: [true, 'Password is required.']
-    }
+    },
+    totalPoints: {
+      type: Number
+    },
+    price: {
+      type: String
+    },
+    image: { type: String}
   },
   {
     timestamps: true

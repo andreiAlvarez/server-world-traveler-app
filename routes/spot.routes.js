@@ -6,8 +6,9 @@ const express = require('express');
 const router = express.Router();
 
 // ********* require Author and Book models in order to use them *********
-const Profile = require('../models/Profile.model');
+const Country = require('../models/Country.model');
 const Spot = require('../models/Spot.model');
+//const uploadCloud = require("../configs/cloudinary-setup");
 
 // ****************************************************************************************
 // POST - create a spot
@@ -32,7 +33,7 @@ router.get('/api/spots', (req, res) => {
 });
 
 // ****************************************************************************************
-// POST route to delete the book
+// POST route to delete the spot
 // ****************************************************************************************
 
 // <form action="/books/{{this._id}}/delete" method="post">
@@ -58,10 +59,29 @@ router.post('/api/spots/:id/update', (req, res) => {
 // ****************************************************************************************
 
 router.get('/api/spots/:someSpotId', (req, res) => {
-  Book.findById(req.params.someSpotId)
-    .populate('profile')
+  Spot.findById(req.params.someSpotId)
+    .populate('country')
     .then(foundSpot => res.status(200).json({ spot: foundSpot }))
     .catch(err => next(err));
 });
+
+// ****************************************************************************************
+// PATCH route for spot image upload
+// ****************************************************************************************
+// router.patch(
+//   "/spots/image/:spotId",
+//   uploadCloud.single("image"),
+//   (req, res, next) => {
+//       Product.findByIdAndUpdate(
+//           req.params.countryId,
+//           { image: req.file.url },
+//           { new: true }
+//       )
+//           .then((updatedCountry) => {
+//               res.status(200).json(updatedProduct);
+//           })
+//           .catch((err) => res.status(400).json(err));
+//   }
+// );
 
 module.exports = router;
