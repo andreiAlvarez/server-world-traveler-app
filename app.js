@@ -44,6 +44,7 @@ app.use('/', require('./routes/index.routes'));
 app.use('/', require('./routes/authentication.routes'));
 app.use('/', require('./routes/country.routes'));
 app.use('/', require('./routes/spot.routes'));
+app.use("/api", require("./routes/fileUpload"));
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

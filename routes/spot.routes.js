@@ -8,17 +8,20 @@ const router = express.Router();
 // ********* require Author and Book models in order to use them *********
 const Country = require('../models/Country.model');
 const Spot = require('../models/Spot.model');
-//const uploadCloud = require("../configs/cloudinary-setup");
+const uploadCloud = require("../configs/cloudinary-setup");
 
 // ****************************************************************************************
 // POST - create a spot
 // ****************************************************************************************
 
 // <form action="/spots" method="POST">
-router.post('/api/spots', (req, res, next) => {
+router.post('/api/spots', uploadCloud.single("pictureUrl"), (req, res, next) => {
   // console.log(req.body);
-  Spot.create(req.body)
-    .then(spotDoc => res.status(200).json({ spot: spotDoc }))
+  const spotInputInfo = req.body;
+  spotInputInfo.image = req.file.url
+  
+  Spot.create(spotInputInfo)
+    .then(spotDoc => res.status(200).json(spotDoc))
     .catch(err => next(err));
 });
 
@@ -66,19 +69,16 @@ router.get('/api/spots/:someSpotId', (req, res) => {
 });
 
 // ****************************************************************************************
-// PATCH route for spot image upload
+// PATCH route for spot image upload count
 // ****************************************************************************************
-// router.patch(
-//   "/spots/image/:spotId",
-//   uploadCloud.single("image"),
-//   (req, res, next) => {
-//       Product.findByIdAndUpdate(
-//           req.params.countryId,
-//           { image: req.file.url },
+
+// router.patch('/spots/image/:spotId', uploadCloud.single("pictureUrl"), (req, res, next) => {
+//       Spot.findByIdAndUpdate( req.params.spotId,
+//           { pictureUrl: req.file.url },
 //           { new: true }
 //       )
-//           .then((updatedCountry) => {
-//               res.status(200).json(updatedProduct);
+//           .then((updatedSpot) => {
+//               res.status(200).json(updatedSpot);
 //           })
 //           .catch((err) => res.status(400).json(err));
 //   }
