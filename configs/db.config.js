@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://localhost/my-app-name', {
+  .connect('mongodb://localhost/world_traveler', {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
