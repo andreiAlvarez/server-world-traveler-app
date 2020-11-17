@@ -68,20 +68,4 @@ router.get('/api/spots/:someSpotId', (req, res) => {
     .catch(err => next(err));
 });
 
-// ****************************************************************************************
-// PATCH route for spot image upload count
-// ****************************************************************************************
-
-// router.patch('/spots/image/:spotId', uploadCloud.single("pictureUrl"), (req, res, next) => {
-//       Spot.findByIdAndUpdate( req.params.spotId,
-//           { pictureUrl: req.file.url },
-//           { new: true }
-//       )
-//           .then((updatedSpot) => {
-//               res.status(200).json(updatedSpot);
-//           })
-//           .catch((err) => res.status(400).json(err));
-//   }
-// );
-
 module.exports = router;

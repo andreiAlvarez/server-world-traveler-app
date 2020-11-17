@@ -8,7 +8,8 @@ const countrySchema = new Schema(
     name: String,
     user: { type: Schema.Types.ObjectId, ref: 'user' },
     pictureUrl: String,
-   image: { type: String }
+   image: { type: String },
+   spot: { type: Schema.Types.ObjectId, ref: 'spot'}
   },
  
   {
