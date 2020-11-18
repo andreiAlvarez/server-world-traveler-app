@@ -13,7 +13,7 @@ const spotSchema = new Schema(
     pictureUrl: { type: String },
     imageArray: { type: [String] },
     user: { type: Schema.Types.ObjectId, ref: 'user' },
-    location: { type: String }
+    rating: { type: String }
   },
   {
     timestamps: true

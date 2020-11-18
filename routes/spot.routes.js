@@ -18,7 +18,7 @@ const uploadCloud = require("../configs/cloudinary-setup");
 router.post('/api/spots', uploadCloud.single("pictureUrl"), (req, res, next) => {
   // console.log(req.body);
   const spotInputInfo = req.body;
-  spotInputInfo.image = req.file.url
+  spotInputInfo.pictureUrl = req.file.path
   
   Spot.create(spotInputInfo)
     .then(spotDoc => res.status(200).json(spotDoc))
@@ -67,5 +67,6 @@ router.get('/api/spots/:someSpotId', (req, res) => {
     .then(foundSpot => res.status(200).json({ spot: foundSpot }))
     .catch(err => next(err));
 });
+
 
 module.exports = router;
